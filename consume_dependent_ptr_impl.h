@@ -54,6 +54,6 @@ template<typename T> inline dependent_ptr<T*> dependent_ptr<T>::operator&() cons
 
 template<typename T> inline T* dependent_ptr<T>::value() const { return ptr; }
 
-template<typename T> inline dependency dependent_ptr<T>::dependency() const { using shadowed = class dependency; return shadowed(ptr); }
+template<typename T> inline dependency dependent_ptr<T>::dep() const { return dep(ptr); }
 
 #endif

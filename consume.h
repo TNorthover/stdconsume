@@ -119,7 +119,7 @@ public:
     T* value() const;
 
     // A pure dependency from the dependent_ptr.
-    dependency dependency() const;
+    dependency dep() const;
 
     // Comparisons aren't needed because the T* themselves can be compared
     // without breaking the dependency chain of the dependent_ptr. This is

@@ -38,6 +38,8 @@ inline dependency::dependency_type __create_dependency(T value) {
 #elif CPU(X86) || CPU(X86_64)
     dep = bit_cast<uint64_t>(value) ^ bit_cast<uint64_t>(value); // Any zero will do for x86
     std::atomic_signal_fence(std::memory_order_acquire);
+#elif CPU(PPC64)
+    asm volatile("xor %w[dep], %w[in], %w[in]" : [dep] "=r"(dep) : [in] "r"(bit_cast<uint64_t>(value)));
 #else
 #error Architecture unsupported.
 #endif
@@ -54,6 +56,8 @@ inline dependency::dependency_type __create_dependency(T value) {
 #elif CPU(X86) || CPU(X86_64)
     dep = bit_cast<uint32_t>(value) ^ bit_cast<uint32_t>(value); // Any zero will do for x86.
     std::atomic_signal_fence(std::memory_order_acquire);
+#elif defined(__PPC64__)
+    asm volatile("xor %[dep], %[in], %[in]" : [dep] "=r"(dep) : [in] "r"(bit_cast<uint32_t>(value)));
 #else
 #error Architecture unsupported.
 #endif

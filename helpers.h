@@ -63,6 +63,9 @@ inline To bit_cast(const From& from) noexcept {
 #if defined(arm)  || defined(__arm__)  || defined(ARM)  || defined(_ARM_)
 #define WTF_CPU_ARM 1
 #endif
+#if defined(__PPC64__)
+#define WTF_CPU_PPC64 1
+#endif
 
 #define COMPILER(WTF_FEATURE) (defined WTF_COMPILER_##WTF_FEATURE  && WTF_COMPILER_##WTF_FEATURE)
 #if defined(__GNUC__)
